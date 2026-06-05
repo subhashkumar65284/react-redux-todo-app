@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo,deleteTodo } from "./slices/todoSlice";
+import { addTodo,deleteTodo,completeTodo } from "./slices/todoSlice";
 import { v4 as uuid } from "uuid";
 import Navbar from "./components/navbar";
 import "./App.css";
@@ -15,6 +15,7 @@ function App() {
         addTodo({
           id: uuid(),
           todo: inputText,
+          status:"added"
         }),
       );
     }
@@ -23,6 +24,11 @@ function App() {
 
   const onDeleteTodoClick = (id) => {
     dispatch(deleteTodo({
+      id:id,
+    }))
+  }
+  const onCompleteTodoClick = (id) => {
+    dispatch(completeTodo({
       id:id,
     }))
   }
@@ -63,9 +69,9 @@ function App() {
         h-[calc(100vh-220px)]
         w-1/2">
           <div className="max-w-2xl mx-auto space-y-4">
-            {todos &&
-              todos.length > 0 &&
-              todos.map(({ id, todo }) => (
+            {(todos &&
+              todos.length > 0)?
+              todos.map(({ id, todo , status }) => (
                 <div
                   key={id}
                   className="
@@ -81,9 +87,25 @@ function App() {
             "
                 >
                   <div className="flex justify-between items-center gap-4">
-                    <h2 className="text-lg sm:text-xl font-semibold break-all">
+                    {(status!=="complete")?<h2 className="text-lg sm:text-xl font-semibold break-all">
                       {todo}
-                    </h2>
+                    </h2>:<h2 className="line-through text-lg sm:text-xl font-semibold break-all">
+                      {todo}
+                    </h2>}
+                    <div>
+                      <button onClick={() => onCompleteTodoClick(id)}
+                      className="
+                px-4 py-2 mr-4
+                rounded-xl
+                bg-green-300/20
+                text-white-400
+                hover:bg-green-500/30
+                transition
+                flex-shrink-0
+                "
+                    >
+                      mark as complete
+                    </button>
 
                     <button onClick={() => onDeleteTodoClick(id)}
                       className="
@@ -94,13 +116,13 @@ function App() {
                 hover:bg-red-500/30
                 transition
                 flex-shrink-0
-                "
-                    >
+                ">
                       Delete
                     </button>
+                    </div>
                   </div>
                 </div>
-              ))}
+              )):<h1 className="text-center font-black text-2xl">No Todos !!</h1>}
           </div>
         </div>
       </div>
