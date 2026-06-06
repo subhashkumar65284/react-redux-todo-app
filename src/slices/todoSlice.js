@@ -17,10 +17,14 @@ const todoSlice = createSlice({
         completeTodo : (state , action) => {
             const todo = state.todos.find((todo) => todo.id === action.payload.id);
             todo.status = "complete";
+        },
+        unmarkTodo : (state , action) => {
+            const todo = state.todos.find((todo) => todo.id === action.payload.id);
+            todo.status = "added";
         }
     }
 })
 
-export const { addTodo,deleteTodo,completeTodo } = todoSlice.actions;
+export const { addTodo,deleteTodo,completeTodo,unmarkTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;
