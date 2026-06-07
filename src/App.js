@@ -91,6 +91,13 @@ function App() {
           </button>
         </div>
         {/* Todo List */}
+        {todos && todos.length > 0 ? (
+          <div className="flex justify-center font-black mt-4 mb-4">
+            Completed : {countCompleted()}/{todos.length}
+          </div>
+        ) : (
+          <div className="flex justify-end font-black mt-4 mb-4"></div>
+        )}
         <div
           className="
         overflow-y-auto
@@ -108,13 +115,6 @@ function App() {
         "
         >
           <div className="space-y-4">
-            {todos && todos.length > 0 ? (
-              <div className="flex justify-end font-black mt-4 mb-4">
-                Completed : {countCompleted()}/{todos.length}
-              </div>
-            ) : (
-              <div className="flex justify-end font-black mt-4 mb-4"></div>
-            )}
             {todos && todos.length > 0 ? (
               todos.map(({ id, todo, status }) => (
                 <div
