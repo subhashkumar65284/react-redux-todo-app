@@ -51,18 +51,19 @@ function App() {
   const countCompleted = () => {
     let count = 0;
     todos.forEach((todo) => {
-      if(todo.status==="complete") count++;
-    })
-    console.log(count);
+      if (todo.status === "complete") count++;
+    });
     return count;
-  }
+  };
   return (
     <>
-      <div className="min-h-screen pt-24 bg-slate-900 text-white flex flex-col overflow-hidden">
+      <div className="min-h-screen pt-24 bg-slate-900
+                      text-white flex flex-col overflow-hidden">
         <Navbar />
 
         {/* Input Section */}
-        <div className="flex flex-col sm:flex-row justify-center gap-3 px-4 w-full max-w-3xl mx-auto">
+        <div className="flex flex-col sm:flex-row 
+                        justify-center gap-3 px-4 w-full max-w-3xl mx-auto">
           <input
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
@@ -107,7 +108,7 @@ function App() {
         "
         >
           <div className="space-y-4">
-            {(todos && todos.length > 0 )? (
+            {todos && todos.length > 0 ? (
               <div className="flex justify-end font-black mt-4 mb-4">
                 Completed : {countCompleted()}/{todos.length}
               </div>
