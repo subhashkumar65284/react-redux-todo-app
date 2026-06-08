@@ -5,4 +5,11 @@ export const store = configureStore({
     reducer : {
         todos:todoReducer
     }
-})
+});
+
+store.subscribe(() => {
+  localStorage.setItem(
+    "todos",
+    JSON.stringify(store.getState().todos.todos)
+  );
+});
